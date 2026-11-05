@@ -11,6 +11,7 @@ import { initProjectOptions } from './options.js';
 import { initFoundationModal } from './foundation.js';
 import { initTrades } from './trades.js';
 import { loadSystemManifests } from './systems.js';
+import { initLive } from './live.js';
 
 loadSystemManifests().catch(e => console.warn('Construction system manifests unavailable:', e));
 
@@ -28,3 +29,6 @@ resizeCanvas();
 loadPricing().then(updateBOM);
 
 window.addEventListener('resize', resizeCanvas);
+
+// Opt-in: only with ?live and `scripts/serve.py --watch` (see live.js).
+initLive().catch(e => console.warn('Live layout unavailable:', e));

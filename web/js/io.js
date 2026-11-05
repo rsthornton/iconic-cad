@@ -7,7 +7,7 @@ import { doc } from './state.js';
 import { markModelChanged } from './app.js';
 import { applyLoadedData } from './load.js';
 
-function serialize(includeMeta) {
+export function serialize(includeMeta) {
   const out = {
     version: doc.version,
     units: doc.units,
