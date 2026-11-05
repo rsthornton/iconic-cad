@@ -127,7 +127,12 @@ export async function initLive() {
     saveTimer = setTimeout(saveToFile, SAVE_DEBOUNCE_MS);
   });
 
-  // File edits -> browser.
+  // File edits -> browser. Open the stream only after the window 'load'
+  // event: Chrome counts a long-lived request started before it as part of
+  // the page load, so the page would never finish loading (spinner forever).
+  if (document.readyState !== 'complete') {
+    await new Promise(done => window.addEventListener('load', done, { once: true }));
+  }
   const events = new EventSource(`${BASE}/events`);
   events.addEventListener('change', () => { loadFromFile(); });
   events.onerror = () => setStatus('lost the dev server; is serve.py still running?', 'error');

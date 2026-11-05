@@ -68,6 +68,11 @@ try {
   assert.match((await badge()).text, /loaded .*: 4 entities/);
   note('initial load from file', '4 entities');
 
+  // 1b. The page still finishes loading (the event stream must not hold the
+  // window 'load' event open).
+  assert.equal(await page.evaluate(() => document.readyState), 'complete');
+  note('page reaches readyState complete');
+
   // 2. Terminal -> browser: rewrite the file, page follows.
   let t0 = Date.now();
   await writeLayout(c1);
