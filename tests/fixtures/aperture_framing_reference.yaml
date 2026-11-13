@@ -1,0 +1,46 @@
+# Measured framing dimensions, transcribed from docs/aperture_framing_reference.md.
+# That document is the source of truth; this file is the same numbers in a form
+# tests can read (issue #7). Nothing here is derived or guessed: every value is a
+# cell of a table in the document, cited by section.
+#
+# Units: inches. Axes: X across the panel width, Z vertical. Each member is an
+# axis-aligned box; `w` runs along X, `h` along Z, `depth` through the wall.
+
+source_doc: docs/aperture_framing_reference.md
+units: in
+
+# Default tolerance for a measured coordinate or length. The source table is
+# rounded to 0.01 in (its full-height studs read both 92.62 and 92.63).
+tolerance_in: 0.05
+
+# docs/aperture_framing_reference.md, "Verified hard numbers"
+hard_numbers:
+  module_width_standard: {value: 48, source: "PDF p22/p28"}
+  interior_door_rough_opening_w: {value: 38, source: "measured `Seh2 8ft interior door`"}
+  interior_door_rough_opening_h: {value: 83, source: "measured `Seh2 8ft interior door`"}
+  window_sill_height_min: {value: 24, source: "wiki Windows page"}
+  example_window_w: {value: 36, source: "wiki Windows page"}
+  example_window_h: {value: 48, source: "wiki Windows page"}
+  exterior_stud_depth: {value: 5.5, source: "repo wall spec"}
+  exterior_osb_thickness: {value: 0.4375, source: "repo wall spec"}
+  interior_stud_depth: {value: 3.5, source: "repo wall spec"}
+
+modules:
+  # docs/aperture_framing_reference.md, "Interior 2x4 door — exact measured layout"
+  # The only module with a full measured member table.
+  idoor_4x8_2x4_38x83:
+    source_section: "Interior 2x4 door — exact measured layout"
+    source_cad: "Seh2 8ft interior door.fcstd"
+    tracking_issue: 5
+    panel: {w: 48, h: 95.62}
+    members:
+      - {source_name: Bottom_Plate,    source_role: "bottom plate stub (left)",              w: 5.00,  depth: 3.5, h: 1.5,   x: 0.00,  z: 0.00}
+      - {source_name: Bottom_Plate001, source_role: "bottom plate stub (right)",             w: 5.00,  depth: 3.5, h: 1.5,   x: 43.00, z: 0.00}
+      - {source_name: Left_Stud,       source_role: "end stud",                              w: 1.5,   depth: 3.5, h: 92.62, x: 0.00,  z: 1.50}
+      - {source_name: Stud_2,          source_role: "inner full-height stud (opening side)", w: 1.5,   depth: 3.5, h: 92.63, x: 3.55,  z: 1.50}
+      - {source_name: Stud_005,        source_role: "inner full-height stud (opening side)", w: 1.5,   depth: 3.5, h: 92.63, x: 43.00, z: 1.50}
+      - {source_name: Right_Stud,      source_role: "end stud",                              w: 1.5,   depth: 3.5, h: 92.63, x: 46.50, z: 1.50}
+      - {source_name: Top_Plate001,    source_role: "flat 2x4 header over opening",          w: 38.00, depth: 3.5, h: 1.5,   x: 5.00,  z: 83.00}
+      - {source_name: Stud_004,        source_role: "cripple header→top plate",              w: 1.5,   depth: 3.5, h: 9.62,  x: 15.50, z: 84.50}
+      - {source_name: Stud_3,          source_role: "cripple header→top plate",              w: 1.5,   depth: 3.5, h: 9.62,  x: 31.00, z: 84.50}
+      - {source_name: Top_Plate,       source_role: "single top plate",                      w: 48.00, depth: 3.5, h: 1.5,   x: 0.00,  z: 94.13}
